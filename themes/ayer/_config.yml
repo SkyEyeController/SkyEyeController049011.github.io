@@ -218,9 +218,11 @@ gitalk:
   enable: true # true
   clientID: 282bbd48a6e63e883a01 # GitHub Application Client ID
   clientSecret: cb3e74e93f34b26e6c84d932950ef08adb25096b # Client Secret
-  repo: Gitalk.github.io # Repository name
+  repo: SkyEyeController.github.io # Repository name
   owner: SkyEyeController # GitHub ID
   admin: SkyEyeController # GitHub ID
+  labels: 'gitalk'
+  distractionFreeMode: true
 
 # 3、Twikoo(https://github.com/imaegoo/twikoo)
 twikoo:
