@@ -153,3 +153,10 @@ permalink: p/:abbrlink.html  # p 是自定义的前缀
 abbrlink:
     alg: crc32   #算法： crc16(default) and crc32
     rep: hex     #进制： dec(default) and hex
+    
+math:
+  engine: 'mathjax'
+  mathjax:
+    src: custom_mathjax_source
+    config:
+      # MathJax config

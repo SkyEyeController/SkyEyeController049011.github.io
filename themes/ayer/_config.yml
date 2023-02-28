@@ -148,18 +148,20 @@ google_analytics: ""
 baidu_analytics: "fa0d73595ad22b110048076c8e10412f"
 
 # Mathjax数学公式
-mathjax: false
-
+mathjax: 
+  enable: true
+  per_page: false
+  cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 # Katex数学公式(allpost设置为false时只有头部设置math:true的文章才开起)
 # 需要更换hexo渲染器，npm un hexo-renderer-marked -S && npm i hexo-renderer-markdown-it-katex -S
 katex:
-  enable: false # true
+  enable: true # true
   allpost: true
   copy_tex: false
 
 # mermaid流程图 三个选项缺一不可(https://mermaid-js.github.io/mermaid/)
 mermaid:
-  enable: false
+  enable: true
   cdn: https://cdn.staticfile.org/mermaid/8.14.0/mermaid.min.js
   theme: forest
 
