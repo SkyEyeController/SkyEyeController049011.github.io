@@ -1,7 +1,10 @@
 ---
 title: Windows和Linux(Ubuntu)下 Vscode C++环境的配置
-tags: VScoode C++ windows Linux Ubuntu
-categories: 教程
+tags: - VScoode 
+- C++ 
+- windows 
+- - Linux Ubuntu
+categories: - 教程
 abbrlink: '45745e46'
 date: 2023-02-25 23:05:30
 ---
@@ -13,7 +16,7 @@ Vscode是一款相当强大的编程软件，其万能的通用插件系统可�
 因为方便的前提是经过安装的时候配置的痛苦（~~md绝了~~）
 
 本片文章将详细的讲述Vscode之于windows和linux系统的C++环境的配置与调试，（~~以方便博主自己忘了的时候查阅~~）
-
+<!--more-->
 #第一部分 Windows系统配置
 ##1.1 MinGW展开部署
 
