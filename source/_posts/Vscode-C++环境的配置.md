@@ -1,10 +1,12 @@
 ---
 title: Windows和Linux(Ubuntu)下 Vscode C++环境的配置
-tags: - VScoode 
-- C++ 
-- windows 
-- - Linux Ubuntu
-categories: - 教程
+tags: 
+  - VScoode 
+  - C++ 
+  - windows 
+  - Linux Ubuntu
+categories: 
+  - 教程
 abbrlink: '45745e46'
 date: 2023-02-25 23:05:30
 ---
