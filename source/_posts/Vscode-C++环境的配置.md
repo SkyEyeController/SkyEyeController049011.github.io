@@ -22,20 +22,30 @@ Vscode是一款相当强大的编程软件，其万能的通用插件系统可�
 #第一部分 Windows系统配置
 ##1.1 MinGW展开部署
 
-Vscode与其说是个编程软件，不如说是一个编程平台：它自己不会携带任何的语言编译软件，这些东西需要自己安装。
+Vscode与其说是个编程软件，不如说是一个编程平台：它自己不会携带任何的语言编译软件，这些东西需要自己安装。如果说，你之前有安装过DEV-CPP或者其他的编程软件，那你的电脑上已经有了MinGW，只需要自己找出来安装地址在哪里。
 
-[SourceForge网站](https://sourceforge.net/projects/mingw-w64/)可以下载到全套的MinGW，但是出于外网的原因这个东西下载起来很慢，所以这里我附上了MinGW的压缩文件，下载后直接解压就可以了（由于初代技术问题，暂时只能通过百度网盘下载）
+在cmd中输入
+```
+gcc -v
+```
+会弹出其路径，寻找即可。
+
+如果没有，那就继续执行下列安装步骤。
+
+[SourceForge网站](https://sourceforge.net/projects/mingw-w64/)可以下载到全套的MinGW，但是出于外网的原因这个东西下载起来很慢，所以这里我附上了MinGW的压缩文件，下载后直接解压到C盘就可以了（由于初代技术问题，暂时只能通过百度网盘下载）
 
 [MinGW下载](https://pan.baidu.com/s/1JjwyTxVQjV2gtmrPwjFhxQ?pwd=qtsg)
 
 提取码：qtsg
+
+[七牛云下载](http://rqzta2283.sabkt.gdipper.com/Git-2.39.2-64-bit.exe)
 
 接下来，要在Windows里面配置环境变量，让电脑知道自己集成了C语言环境（~~毕竟它不是550W~~）
 
 打开设置--->系统--->系统信息（win11在最底下）--->高级系统设置--->环境变量--->系统变量Path，在里面加上一句话
 
 ```
-E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
+C:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 ```
 如果是直接下载的附件里面的编译器就是这句话，如果是从官网安装的就要注意自己寻找路径，路径格式和上述代码基本一致，这个bin文件夹里面是一套完整的编译器.exe
 
@@ -58,12 +68,14 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 
 在.vscode中点击“新建文件”快捷键，分别命名四个文件：
 
+{% asset_img 1-2-2.png 新建文件和新建文件夹快捷键 %}
+
 *** 1.c_cpp_properties.json ***
 *** 2.launch.json ***
 *** 3.settings.json ***
 *** 4.tasks.json ***
 
-{% asset_img 1-2-2.png 新建文件 %}
+
 
 {% asset_img 1-2-3.png 在.vscode新建的四个文件 %}
 
@@ -80,14 +92,14 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "E:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"
+                "C:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"//如果是别的地址要自己修改,下同。
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "E:\\MinGW\\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\\bin\\gcc.exe",
+            "compilerPath": "C:\\MinGW\\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\\bin\\gcc.exe",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
             "intelliSenseMode": "windows-gcc-x64"
@@ -126,7 +138,7 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
             "environment": [],
             "externalConsole": true,//true显示外置的控制台窗口，false显示内置终端
             "MIMode": "gdb",
-            "miDebuggerPath": "E:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/bin/gdb.exe",
+            "miDebuggerPath": "C:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/bin/gdb.exe",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
@@ -243,7 +255,7 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
         {
             "type": "shell",
             "label": "g++.exe build active file",//任务的名字，就是刚才在命令面板中选择的时候所看到的，可以自己设置
-            "command": "E:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/bin/g++.exe",
+            "command": "C:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/bin/g++.exe",
             "args": [//编译时候的参数
                 "-g",//添加gdb调试选项
                 "${file}",
@@ -251,7 +263,7 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "E:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/bin"
+                "cwd": "C:/MinGW/x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0/bin"
             },
             "problemMatcher": [
                 "$gcc"
@@ -265,7 +277,7 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 }
 ```
 
-保存退出后，在新建文件夹下新建cpp文件，helloworld验证，Fn+F5调试运行。如果能成功运行说明配置成功。
+保存退出后，在新建文件夹下（注意不要建到.vscode里面，如果嫌麻烦可以右键.vscode选择属性：隐藏）新建cpp文件，helloworld验证，Fn+F5调试运行。如果能成功运行说明配置成功。
 
 #第二部分 Linux(Ubuntu)环境配置
 
@@ -275,9 +287,15 @@ E:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 
 这波相较于windows系统下会方便很多，直接通过命令行下载。
 
+如果你的WSL之前没有操作过apt-get,要多执行一步apt-get upgrade.
+
 ```
 sudo apt-get update
-
+```
+```
+sudo apt-get upgrade
+```
+```
 sudo apt-get install gcc
 
 sudo apt-get install g++
@@ -301,8 +319,34 @@ CentOS需要别的方法安装（或者等卑微的作者更新）
 
 ## 2.2 Vscode配置安装
 
-和上文同理，安装C/C++插件，通过mkdir命令（或者vscode的快捷键点）新建.vscode文件夹以及新建三个json文件，并配置如下代码（直接复制即可）
+启动Vscode，启动远程连接到WSL（左下角绿方框-->New WSL Window）
 
+在新窗口里，安装C/C++插件（在Ubuntu18.04 LTS安装）。
+
+安装完成后，快捷键Ctrl+`(即Esc下面哪一个)调出终端，输入命令：
+```
+mkdir program
+```
+新建一个program文件夹。
+继续命令：
+```
+cd program
+mkdir .vscode
+```
+进入program文件夹并创建".vscode"文件夹。
+
+继续命令：
+```
+cd .vscode
+touch launch.json c_cpp_properties.json tasks.json
+```
+创建完毕三个文件。
+
+在vscode打开文件夹-->program，点击确定（不要点.vscode,提示框里的路径应为/home/*****（你的linux用户名）/program）
+
+如果弹出是否选择信任此文件夹，选择信任。
+
+在里面点击.vscode，分别打开三个文件，拷贝以下内容。
 ***launch.json***
 ```
 {
@@ -393,8 +437,15 @@ CentOS需要别的方法安装（或者等卑微的作者更新）
     ]
 }
 ```
+点击文件框下半部分空白区域（此时会有一个蓝色框将整个program文件夹框起来，表示在program文件夹下）
 
-这时，Linux下VScode就可以正常运行了。
+{% asset_img 2-2-1.png 蓝色框 %}
+
+点击“新建文件”自己创建一个helloworld（注意：要在program文件夹下，不要新建到.vscode里面），如果可以Fn+F5调试，Linux下VScode就可以正常运行了。
+
+***注意，如果你的C++扩展没有安装好，你的launch.json和tasks.json会有黄色条目警告你找不到相关的配置与编译器***
+
+至此，C++在windows和Ubuntu下全部部署完毕。
 
 
 
