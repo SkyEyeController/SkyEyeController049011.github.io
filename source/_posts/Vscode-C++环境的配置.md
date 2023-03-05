@@ -32,13 +32,9 @@ gcc -v
 
 如果没有，那就继续执行下列安装步骤。
 
-[SourceForge网站](https://sourceforge.net/projects/mingw-w64/)可以下载到全套的MinGW，但是出于外网的原因这个东西下载起来很慢，所以这里我附上了MinGW的压缩文件，下载后直接解压到C盘就可以了（由于初代技术问题，暂时只能通过百度网盘下载）
+[SourceForge网站](https://sourceforge.net/projects/mingw-w64/)可以下载到全套的MinGW，但是出于外网的原因这个东西下载起来很慢，所以这里我附上了MinGW的压缩文件，下载后直接解压到C盘就可以了。
 
-[MinGW下载](https://pan.baidu.com/s/1JjwyTxVQjV2gtmrPwjFhxQ?pwd=qtsg)
-
-提取码：qtsg
-
-[七牛云下载](http://rqzta2283.sabkt.gdipper.com/Git-2.39.2-64-bit.exe)
+[七牛云下载](http://rqzta2283.sabkt.gdipper.com/MinGW.zip)
 
 接下来，要在Windows里面配置环境变量，让电脑知道自己集成了C语言环境（~~毕竟它不是550W~~）
 
