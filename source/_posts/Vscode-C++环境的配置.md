@@ -49,7 +49,7 @@ C:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 ```
 如果是直接下载的附件里面的编译器就是这句话，如果是从官网安装的就要注意自己寻找路径，路径格式和上述代码基本一致，这个bin文件夹里面是一套完整的编译器.exe
 
-{% asset_img 1-1.png 目标文件夹内容 %}
+<img src="1-1.png" alt="目标文件夹内容" style="zoom:80%;" />
 
 ## 1.2 VsCode编译运行环境配置
 
@@ -58,7 +58,7 @@ C:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 
 在Vscode侧边栏插件部分搜索C++，下载C/C++插件
 
-{% asset_img 1-2-1.png C/C++插件 %}
+<img src="1-2-1.png" alt="C/C++插件" style="zoom:80%;" />
 
 ### 1.2.2 编译器路径设置
 
@@ -68,7 +68,7 @@ C:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 
 在.vscode中点击“新建文件”快捷键，分别命名四个文件：
 
-{% asset_img 1-2-2.png 新建文件和新建文件夹快捷键 %}
+<img src="1-2-2.png" alt="新建文件和新建文件夹快捷键" style="zoom:80%;" />
 
 *** 1.c_cpp_properties.json ***
 *** 2.launch.json ***
@@ -77,7 +77,7 @@ C:\MinGW\x86_64-8.1.0-release-win32-sjlj-rt_v6-rev0\bin
 
 
 
-{% asset_img 1-2-3.png 在.vscode新建的四个文件 %}
+<img src="1-2-3.png" alt="在.vscode新建的四个文件" style="zoom:80%;" />
 
 这四个分别是C编译器配置、GDB调试配置、设置文件、编译生成文件设置
 
@@ -439,7 +439,7 @@ touch launch.json c_cpp_properties.json tasks.json
 ```
 点击文件框下半部分空白区域（此时会有一个蓝色框将整个program文件夹框起来，表示在program文件夹下）
 
-{% asset_img 2-2-1.png 蓝色框 %}
+<img src="2-2-1.png" alt="蓝色框" style="zoom:80%;" />
 
 点击“新建文件”自己创建一个helloworld（注意：要在program文件夹下，不要新建到.vscode里面），如果可以Fn+F5调试，Linux下VScode就可以正常运行了。
 

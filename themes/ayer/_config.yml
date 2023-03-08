@@ -148,7 +148,12 @@ google_analytics: ""
 baidu_analytics: "fa0d73595ad22b110048076c8e10412f"
 
 # Mathjax数学公式
-mathjax: true
+# MathJax Support
+mathjax:
+  enable: true
+  per_page: true
+  #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
 # Katex数学公式(allpost设置为false时只有头部设置math:true的文章才开起)
 # 需要更换hexo渲染器，npm un hexo-renderer-marked -S && npm i hexo-renderer-markdown-it-katex -S
@@ -174,7 +179,7 @@ icp:
 # 公安备案信息尾部显示
 gongan:
   enable: false
-  img: /images/beian.png #公安备案图片
+  img: /images/beian.png" alt="#公安备案图片
   url: "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=01234567890123" #公安备案链接
   text: "" #公安备案信息
 
