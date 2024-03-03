@@ -1,5 +1,5 @@
 ---
 title: Gallery
 
-albums: [["img_url", "img_caption"], ["img_url", "img_caption"]] #img_url Ìæ»»³ÉÍ¼Æ¬Â·¾¶£¬caption Ìæ»»³ÉÍ¼Æ¬Ãû³Æ
+albums: [["img_url", "img_caption"], ["img_url", "img_caption"]] #img_url æ›¿æ¢æˆå›¾ç‰‡è·¯å¾„ï¼Œcaption æ›¿æ¢æˆå›¾ç‰‡åç§°
 ---
