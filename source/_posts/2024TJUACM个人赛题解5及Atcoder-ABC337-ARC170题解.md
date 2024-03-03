@@ -1,12 +1,13 @@
 ---
 title: 2024TJUACM个人赛题解5及Atcoder-ABC337/ARC170题解
-date: 2024-01-22 18:38:41
 tags:
   - 程序设计
   - C++
 categories:
   - ICPC-CCPC
 mathjax: true
+abbrlink: 7aed0136
+date: 2024-01-22 18:38:41
 ---
 
 摆烂的时间有点长了，理一理最近做的一些题。
