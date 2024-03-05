@@ -109,10 +109,10 @@ deploy:
  # repository: https://gitee.com/skyeyecontroller/skyeyecontroller.git
  # branch: master
 
-#feed:
-  #type: atom
-  #path: atom.xml
-  #limit: 100
+feed:
+  type: atom
+  path: atom.xml
+  limit: 100
 
 
 search:
