@@ -141,7 +141,6 @@ uglify:
   exclude: 
 	- '*.min.js'
   
-
 baidu_url_submit:
   count: 100 #提交最新的多少个链接
   host: skyeyecontroller.top # 百度站长平台中注册的域名
