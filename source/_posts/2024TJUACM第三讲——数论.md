@@ -24,7 +24,7 @@ mathjax: true
 
 算法原理：
 $$
-
+\begin{align}
 &对于一个合数A进行质因数分解得到\\
 \\
 &A=\prod_{i=1}^{n}p_i^{k_i},p_1<p_2<...<p_n\\
@@ -60,7 +60,7 @@ $$
 &综上所述，线性性成立，时间复杂度O(n).\\
 \\
 &Q.E.D\\
-
+\end{align}
 $$
 
 ```
@@ -124,7 +124,7 @@ $$
 莫比乌斯函数
 
 $$
-&\mu(n)=\left\{
+\begin{align}\mu(n)=\left\{
 \begin{aligned}
 &\quad \ -1\qquad \quad \ \ iff\ \ n\ is\ a\ prime \\
 &\qquad 0\qquad \qquad n^{'}\;mod\;p1=0\\
@@ -132,6 +132,7 @@ $$
 \end{aligned}
 \right.
 &,n=p_1\cdot n^{'}
+\end{align}
 $$
 
 
@@ -359,7 +360,7 @@ int gcd(int x,int y)
 }
 ```
 
-对于a远大于b的情况，对更相减损术使用Stein算法优化：
+对于$a$远大于$b$的情况，对更相减损术使用Stein算法优化：
 
 若$(2\mid a) \and (2\mid b)$则有$gcd(a,b)=2gcd(\frac{a}{2},\frac{b}{2})$​
 
@@ -539,7 +540,7 @@ $$
 
 
 
-##### 欧拉定理与扩展欧拉定理$(Extend\ Euler\ Theory)$
+##### 欧拉定理与扩展欧拉定理
 
 $$
 a^b\equiv 
@@ -592,7 +593,7 @@ int qpow(int a, int n, int MOD) // 快速幂
     }
     return ans;
 }
-int calc(int a,int n)
+int Ex_euler_T(int a,int n)
 {
 	if(__gcd(a,MOD)==1)
 	{
@@ -602,10 +603,59 @@ int calc(int a,int n)
 	{
 		if(b<phi[m])
 		{
-			
+			return qpow(a,b);
 		}
+		return qpow(a,(b%phi[m])+phi[m]);
 	}
 }
 #undef int
 ```
 
+#### 乘法逆元
+
+如何求解分数的模？换言之，已知$gcd(a,b)=1$，如何求$a^{-1}\ mod\ b$?
+
+1. 扩展欧几里得定理求解
+
+   方程极易转化为$ax\equiv 1\ (mod\ b)$，依据扩展欧几里得公式迅速求解。
+
+   ```
+   int exgcd(int a,int b int &x,int &y)
+   {
+   	if(b==0)
+   	{
+   		x=1;y=0;return;
+   	}
+   	exgcd(x,y);
+   	int t=y;
+   	y=x-(a/b)y;
+   	x=t;
+   }
+   ```
+
+2. 费马小定理求解
+
+   这个是最常用的，一般题目都会让对质数求模。
+
+   ```
+   int invq(int a)
+   {
+   	return quickpow(a,mod-2);
+   }
+   ```
+
+   逆元运算是分数意义的求模，在整数域定义了实数意义上的倒数运算，其基本性质和倒数没有区别。根据此可由前缀积实现线性求$n$个数的逆元。
+
+#### 线性同余方程
+
+$$
+ax\equiv b\ (mod\ m)\\
+$$
+
+解方程：
+$$
+x\equiv ba^{-1}\ (mod\ m)
+$$
+
+
+## NT-S-1 线性同余方程组与中国剩余定理 
