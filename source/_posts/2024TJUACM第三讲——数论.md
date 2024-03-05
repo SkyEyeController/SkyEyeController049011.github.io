@@ -24,7 +24,7 @@ mathjax: true
 
 算法原理：
 $$
-\begin{align}
+
 &对于一个合数A进行质因数分解得到\\
 \\
 &A=\prod_{i=1}^{n}p_i^{k_i},p_1<p_2<...<p_n\\
@@ -60,8 +60,7 @@ $$
 &综上所述，线性性成立，时间复杂度O(n).\\
 \\
 &Q.E.D\\
-
-\end{align}
+
 $$
 
 ```
@@ -124,15 +123,15 @@ $$
 
 莫比乌斯函数
 
-​       $\mu(p)=-1$​
 $$
 &\mu(n)=\left\{
 \begin{aligned}
+&\quad \ -1\qquad \quad \ \ iff\ \ n\ is\ a\ prime \\
 &\qquad 0\qquad \qquad n^{'}\;mod\;p1=0\\
 &-\mu(n^{'})\qquad \quad otherwise
 \end{aligned}
 \right.
-&n=p_1\cdot n^{'}
+&,n=p_1\cdot n^{'}
 $$
 
 
@@ -487,7 +486,7 @@ $$
 \\
 (\ a(A_j-A_i)\ mod\ p=0 \Rightarrow (A_j-A_i)\ mod \ p=0 \Rightarrow A_j=A_i\ )\\
 \\
-(同余系的互质倍数亦为同余系)\\
+(剩余系的互质倍数亦为剩余系)\\
 \\
 那么显然会有以下的内容成立:\\
 \prod_{i=1}^{n(n\leq p-1)}A_i \equiv \prod_{i=1}^{n(n\leq p-1)}(A_i \times a)\;mod\;p\\
@@ -505,6 +504,12 @@ a^p\equiv a\ (mod\ p)\\
 Q.E.D\\
 $$
 
+
+
+[关于剩余系、完全剩余系、简化（既约）剩余系、同余类的概念]([剩余类、剩余系、完全剩余系和简化剩余系学习笔记 - olderciyuan - 博客园 (cnblogs.com)](https://www.cnblogs.com/olderciyuan/p/15500681.html))
+
+
+
 #### 欧拉定理
 
 $$
@@ -514,4 +519,93 @@ a^{\varphi(m)}\equiv1\ (mod\ m)\\
 \\
 $$
 
-证明：
+##### 证明：
+
+$$
+设集合A=\left\{r_1,r_2,……,r_{\varphi(m)}\right\}为模m下的一个简化剩余系，那么易得\\
+\\
+\left\{ar_1,a_2,……,ar_{\varphi(m)} \right\}同样是一个简化剩余系\\
+\\
+则根据费马小定理的证明方法有\\
+\\
+f=\prod_{i=1}^{\varphi(m)}r_i\\
+\\
+f\equiv a^{\varphi(m)}f\ (mod\ m)\\
+\\
+1\equiv a^{\varphi(m)}\ (mod\ m)\\
+\\
+Q.E.D
+$$
+
+
+
+##### 欧拉定理与扩展欧拉定理$(Extend\ Euler\ Theory)$
+
+$$
+a^b\equiv 
+\left \{
+\begin{aligned}
+&a^{b\ mod\ \varphi(m)}\qquad \qquad gcd(a,m)=1\\
+&a^b \qquad\qquad\qquad\quad\ gcd(a,m)\neq1,b<\varphi(m)\\
+&a^{(b\ mod\ \varphi(m))+\varphi(m)} \quad \ gcd(a,m)\neq1,b\geq\varphi(m)
+\end{aligned}
+\right.\quad (mod\ m)
+$$
+
+
+
+[证明](https://zhuanlan.zhihu.com/p/131536831)，$Q.E.D$
+
+扩展欧拉定理应用于对超大整数快速幂求模的优化降幂运算，来大幅度降低时间复杂度
+
+```
+#define int long long
+int prime[maxn];
+bool vis[maxn];//初始0，标记合数
+int phi[maxn];
+void euler(int n)
+{
+	for(int i=2;i<=n;i++)
+	{
+		if(!vis[i])prime[++prime[0]]=i,phi[i]=i-1;\\性质1
+		for(int j=1;j<=prime[0]&&i*prime[j]<=n;j++)
+		{
+			vis[i*prime[j]]=true;\\筛去合数
+			if(i%prime[j]==0)
+			{
+				phi[i*prime[j]]=prime[j]*phi[i];\\性质3
+				break;
+			}
+			phi[i*prime[j]]=phi[prime[j]]*phi[i];\\性质2
+		}
+	}
+}
+int qpow(int a, int n, int MOD) // 快速幂
+{
+    int ans = 1;
+    while (n)
+    {
+        if (n & 1)
+            ans =  ans * a % MOD; 
+        n >>= 1;
+        a =  a * a % MOD;
+    }
+    return ans;
+}
+int calc(int a,int n)
+{
+	if(__gcd(a,MOD)==1)
+	{
+		return qpow(a,b%phi[m]);
+	}
+	else
+	{
+		if(b<phi[m])
+		{
+			
+		}
+	}
+}
+#undef int
+```
+
