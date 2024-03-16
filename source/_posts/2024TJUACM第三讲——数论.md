@@ -425,10 +425,8 @@ void exgcd(int a,int b,int &x,int &y)
 	{
 		x=1;y=0;return;
 	}
-	exgcd(b,a%b,x,y);
-	int t=y;
-	y=x-(a/b)*y;
-	x=t;
+	exgcd(b,a%b,y,x);
+	y-=(a/b)*x;
 	return;
 }
 ```
@@ -443,6 +441,8 @@ y=y^{'}-k\frac{a}{gcd(a,b)}\\
 \end{aligned}
 \right.
 $$
+
+
 
 
 
@@ -626,12 +626,29 @@ int Ex_euler_T(int a,int n)
    	{
    		x=1;y=0;return;
    	}
-   	exgcd(x,y);
+   	exgcd(b,a%b,x,y);
    	int t=y;
    	y=x-(a/b)y;
    	x=t;
    }
    ```
+
+   一般的我们需要最小的正整数解：
+   $$
+   x=(x^{'}mod\ b\ +b)mod\
+   $$
+   
+
+   ```
+   int invq(int a,int mod)
+   {
+   	int x,y;
+   	exgcd(a,mod,x,y);
+   	return (x%mod+mod)%mod;
+   }
+   ```
+
+   
 
 2. 费马小定理求解
 
@@ -657,5 +674,316 @@ $$
 x\equiv ba^{-1}\ (mod\ m)
 $$
 
+#### 威尔逊定理
+
+
 
 ## NT-S-1 线性同余方程组与中国剩余定理 
+
+### 中国剩余定理$Chinese\ Remainder\ Theorem$
+
+今有物不知几何，三三数之剩二，五五数之剩三，七七数之剩二，问物几何？
+
+
+
+### 中国剩余定理与线性同余方程组
+
+#### 数学抽象
+
+一般的，中国剩余定理可以求解如下线性同余方程组
+$$
+\left\{\begin{aligned}
+&x\equiv a_1\ (mod\ n_1)\\
+&x\equiv a_2\ (mod\ n_2)\\
+&\quad\vdots\\
+&x\equiv a_k\ (mod\ n_k)\\
+\end{aligned}\right.
+$$
+
+
+其中所有$n_i$互质。
+
+#### 求解过程
+
+1. 计算$N=\prod_{i=1}^kn_i$
+2. 对于第$i$个方程:
+   1. 计算$m_i=\frac{N}{n_i}$
+   2. 计算$m_i^{-1}\ (mod\ n_i)$
+   3. 计算$c_i=m_i\cdot m_i^{-1}$，不取模。
+3. 方程组在模$n$​意义下唯一解为
+
+$$
+x=\sum_{i=1}^ka_i\cdot c_i
+$$
+
+#### 证明
+
+$$
+\begin{aligned}
+&\begin{aligned}
+x&=\sum_{i=1}^ka_i\cdot c_i\\
+&=\sum_{i=1}^{k}a_i\cdot m_i\cdot m_i^{-1}\\
+\\
+\end{aligned}\\
+
+&\begin{aligned}
+&当i\neq j时，m_i\equiv 0\ (mod\ n_j)\\
+\\
+&故有\\
+\end{aligned}\\
+\\
+&\begin{aligned}
+x&\equiv a_j\cdot m_j\cdot m_j^{-1}\ (mod\ n_j)\\
+&\equiv a_j\ (mod\ n_j)\\
+\end{aligned}\\
+\\
+&Q.E.D
+\end{aligned}
+$$
+
+#### 实现
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+void Exgcd(int a, int b, int &x, int &y)
+{
+    if (b == 0)
+    {
+        x = 1, y = 0;
+        return;
+    }
+    Exgcd(b, a % b, y, x);
+    y -= (a / b) * x;
+    return;
+}
+const int maxn = 101;
+int m;
+int n[maxn], a[maxn]; // 对a取模余数是b
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    cin >> m;
+    int N = 1;
+    for (int i = 1; i <= m; i++)
+    {
+        cin >> n[i] >> a[i];
+        N *= n[i];
+    }
+    int ans = 0;
+    for (int i = 1; i <= m; i++)
+    {
+        int tar = N / n[i];
+        int x, y;
+        Exgcd(tar, n[i], x, y);
+        x = (x % n[i] + n[i]) % n[i];
+        (ans += ((tar * x) % N * (a[i] % N))) %= N;
+    }
+    cout << (ans + N) % N << endl;
+    system("pause");
+    return 0;
+}
+```
+
+
+
+### 扩展中国剩余定理与扩展欧几里得定理
+
+$$
+\left\{\begin{aligned}
+&x\equiv a_1\ (mod\ m_1)\\
+&x\equiv a_2\ (mod\ m_2)\\
+&\quad\vdots\\
+&x\equiv a_k\ (mod\ m_k)\\
+\end{aligned}\right.
+$$
+
+此时$m_i$之间不保证两两互质，无法使用中国剩余定理的逆元方法求解。
+
+#### 求解方法
+
+任取两组方程
+$$
+\left\{\begin{aligned}
+&x\equiv a_i\ (mod\ m_i)\\
+&x\equiv a_j\ (mod\ m_j)\\
+
+\end{aligned}\right.
+$$
+设此时方程组某个解为$x=m_ik_i+a_i=m_jk_j+a_j$（$k_i、k_j\in Z$​，不保证必须为质数）
+
+那么可以将等式转化为
+$$
+m_ik_i-m_jk_j=a_j-a_i
+$$
+根据裴蜀定理，如果$gcd(m_i,m_j)\nmid a_j-a_i$，那么此时该方程无解,同余方程组无解。
+
+否则可计算出
+$$
+m_{i^{'}}k_i+m_{j^{'}}k_j=\frac{a_j-a_{i}}{gcd(m_i,m_j)}
+$$
+其中$gcd(m_{i^{'}},m_{j^{'}})=1$，再次应用裴蜀定理
+$$
+m_{i^{'}}k_{i^{'}}+m_{j^{'}}k_{j^{'}}=1
+$$
+
+
+$Exgcd$求解之后得到***特解 $k_{i^{'}}$​（注意，可能是负的）***
+$$
+k_i=k_{i^{'}}\frac{a_j-a_{i}}{gcd(m_i,m_j)}
+$$
+组合得到新同余方程
+$$
+x\equiv m_ik_i+a_i\ (mod\ lcm(m_i,m_j))
+$$
+如上应用$n-1$​次扩展欧几里得定理之后即可得到同余方程组结果。
+
+#### 快速乘
+
+需要注意的是，在线性同余方程组求解中，$\frac{a_j-a_{i}}{gcd(m_i,m_j)}$可能会非常的大以至于爆破$long\ long$，而且计算机做加法的速度远快于做乘法。所以需要类比快速幂使用快速乘法。需要注意的是，在本题特殊环境下，可能出现负数的快速乘，需要对模化成正数解决。
+
+```
+#define int long long
+int quickmul(int a,int b,int mod)
+{
+    int e=0;
+    while(b)
+    {
+        if(b&1)(e+=a)%=mod;
+        (a<<=1)%=mod;
+        b>>=1;
+    }
+    return e;
+}
+#undef int
+```
+
+#### 解决方案
+
+```
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int quickmul(int a, int b, int mod)
+{
+    while (a < 0)
+        a += mod;
+    while (b < 0)
+        b += mod;
+    if (a < b)
+        swap(a, b);
+    int e = 0;
+    while (b)
+    {
+        if (b & 1)
+            (e += a) %= mod;
+        (a <<= 1) %= mod;
+        b >>= 1;
+    }
+    return e;
+}
+void exgcd(int a, int b, int &x, int &y)
+{
+    if (b == 0)
+    {
+        x = 1, y = 0;
+        return;
+    }
+    exgcd(b, a % b, y, x);
+    y -= (a / b) * x;
+}
+const int maxn = 500001;
+int a[maxn], m[maxn]; // 对m取模余数是a
+int n;
+int ExCRT()
+{
+    int mod = m[1], ans = a[1];
+    for (int i = 2; i <= n; i++)
+    {
+        int b1 = mod, b2 = m[i], c = __gcd(b1, b2), minus = (a[i] - ans % b2 + b2) % b2;
+        if (minus % c != 0)
+            return -1;
+        b1 /= c, b2 /= c, minus /= c;
+        int x, y;
+        exgcd(b1, b2, x, y);
+        x = quickmul(x, minus, b2);
+        ans += x * mod;
+        mod *= b2;
+        ans = (ans % mod + mod) % mod;
+    }
+    return ans;
+}
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> m[i] >> a[i];
+    }
+    cout << ExCRT() << endl;
+    system("pause");
+    return 0;
+}
+```
+
+## NT-S-2 卢卡斯定理与扩展卢卡斯定理
+
+#### 卢卡斯定理$Lucas\ Theorem$​
+
+##### 内容
+
+$$
+对于质数p，有如下等式成立:\\
+\left(
+\begin{aligned}
+&n\\
+&m\\
+\end{aligned}
+\right)\ mod\ p=
+\left(
+\begin{aligned}
+&n\ mod\ p\\
+&m\ mod\ p\\
+\end{aligned}
+\right)\cdot\left(
+\begin{align}
+&\lfloor \frac{n}{p}\rfloor\\
+&\lfloor \frac{m}{p}\rfloor
+\end{align}
+\right)\ mod\ p
+$$
+
+亦或写作
+$$
+C_n^{m}\ mod\ p=C_{\lfloor \frac{n}{p}\rfloor}^{\lfloor \frac{m}{p}\rfloor}\cdot C_{n\ mod\ p}^{m\ mod\ p}\ mod \ p
+$$
+注意到$C_{\lfloor \frac{n}{p}\rfloor}^{\lfloor \frac{m}{p}\rfloor}$可能依旧很大，可继续使用卢卡斯定理递归求解。边界条件为$m=0$返回$1$.
+
+```
+long long C(long long n,long long m,long long mod)
+{
+	if(m>n&&n==0)return 0;
+	if(m==0)return 1;
+	return ((frac[n]*invq[m]%mod)*invq[n-m])%mod;
+}
+//阶乘的值和逆元预处理是线性的递推
+long long Lucas(long long n, long long m, long long p)
+{
+    if (m == 0)
+        return 1;
+    return (C(n % p, m % p, p) * Lucas(n / p, m / p, p)) % p;
+}
+```
+
+##### 证明
+
+[$Q.E.D$](https://oi-wiki.org/math/number-theory/lucas/#证明)
+
+#### 扩展卢卡斯定理$Extend\ Lucas\ Theorem$
+
