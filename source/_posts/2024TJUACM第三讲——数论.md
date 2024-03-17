@@ -37,7 +37,7 @@ $$
 \\
 &接下来证明欧拉线性筛是如何避免埃氏筛法中明显存在的重复筛去问题的。\\
 \\
-&在开始前需要先区分筛除素数倍数和用素数筛的区别。\\
+&在开始前需要先区分筛除素数倍数(即prime[j])和用素数(即i)筛的区别。\\
 \\
 &对于一个发现的目标质数，我们要将其存储并筛掉其的所有倍数\\
 \\
@@ -55,7 +55,7 @@ $$
 \\
 &首先i在此时肯定是合数，如果前面小的素数p_0出现了p_0\mid i,那么i必有i=p_0\times k,\\
 \\
-&此时p_0\times i=p_0 \times (p_0k),会在p_0k倍时被p_0筛除掉。\\
+&此时设紧随其后的一个质数为p_1,p_1\times i=p_1 \times (p_0k),会在筛p_1k时被p_0倍筛除掉。\\
 \\
 &综上所述，线性性成立，时间复杂度O(n).\\
 \\
@@ -73,7 +73,7 @@ void euler(int n)
 		if(!vis[i])prime[++prime[0]]=i;
 		for(int j=1;j<=prime[0]&&i*prime[j]<=n;j++)
 		{
-			vis[i*prime[j]]=true;\\筛去合数
+			vis[i*prime[j]]=true;//筛去合数
 			if(i%prime[j]==0)break;
 		}
 	}
@@ -168,7 +168,7 @@ $$
 \\
 &g(n)=\left\{
 \begin{aligned}
-&g(x) \cdot p_1 \quad iff \;\;x\;mod\;p=0\\
+&g(x) \cdot p_1 \quad iff \;\;x\;mod\;p_1=0\\
 &p_1\qquad \;\;otherwise
 \end{aligned}
 \right.
