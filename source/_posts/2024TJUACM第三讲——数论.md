@@ -362,7 +362,7 @@ int gcd(int x,int y)
 
 对于$a$远大于$b$的情况，对更相减损术使用Stein算法优化：
 
-若$(2\mid a) \and (2\mid b)$则有$gcd(a,b)=2gcd(\frac{a}{2},\frac{b}{2})$​
+若$(2\mid a)\land(2\mid b)$则有$gcd(a,b)=2gcd(\frac{a}{2},\frac{b}{2})$​
 
 否则若$2 \mid a$,则有$gcd(a,b)=gcd(\frac{a}{2},b)$​
 
@@ -449,7 +449,7 @@ $$
 ### 裴蜀定理
 
 $$
-\begin{align}
+\begin{aligned}
 &设不全为0的整数a,b，对于任意整数x,y有\\
 \\
 &\qquad gcd(a,b)|(ax+by)\\
@@ -457,8 +457,7 @@ $$
 &且一定存在整数解x_0,y_0使得下列方程成立\\
 \\
 &\qquad ax_0+by_0=gcd(a,b)
-
-\end{align}
+\end{aligned}
 $$
 
 ## NT-3 同余相关
@@ -468,46 +467,48 @@ $$
 #### 费马小定理
 
 $$
-对于任意正整数a，\exist p满足gcd(a,p)=1,则必然有以下同余式成立:\\
+对于任意正整数a，\exists p满足gcd(a,p)=1,则必然有以下同余式成立:\\
 a^{p-1} \equiv1\ (mod \; n)
 $$
 
 ##### 证明
 
 $$
-设一个和a互质的质数为p，勒令集合A=\left\{1,2,……,p-1\right\}.(p的完全剩余系)\\
+\begin{aligned}
+&设一个和a互质的质数为p，勒令集合A=\left\{1,2,……,p-1\right\}.(p的完全剩余系)\\
 \\
-由于gcd(a,p)=1,gcd(A_i,p)=1\\
+&由于gcd(a,p)=1,gcd(A_i,p)=1\\
 \\
-那么显然\forall i\in [1,p-1],gcd(A_i\times a,p)=1\\
+&那么显然\forall i\in [1,p-1],gcd(A_i\times a,p)=1\\
 \\
-进一步的，则必然有:\\
+&进一步的，则必然有:\\
 \\
-\forall i\in[1,p-1],\;\nexists j\neq i\;,使得aA_i\equiv aA_j\ (mod\ p)\\
+&\forall i\in[1,p-1],\;\nexists j\neq i\;,使得aA_i\equiv aA_j\ (mod\ p)\\
 \\
-(\ a(A_j-A_i)\ mod\ p=0 \Rightarrow (A_j-A_i)\ mod \ p=0 \Rightarrow A_j=A_i\ )\\
+&(\ a(A_j-A_i)\ mod\ p=0 \Rightarrow (A_j-A_i)\ mod \ p=0 \Rightarrow A_j=A_i\ )\\
 \\
-(剩余系的互质倍数亦为剩余系)\\
+&(剩余系的互质倍数亦为剩余系)\\
 \\
-那么显然会有以下的内容成立:\\
-\prod_{i=1}^{n(n\leq p-1)}A_i \equiv \prod_{i=1}^{n(n\leq p-1)}(A_i \times a)\;mod\;p\\
+&那么显然会有以下的内容成立:\\
+&\prod_{i=1}^{n(n\leq p-1)}A_i \equiv \prod_{i=1}^{n(n\leq p-1)}(A_i \times a)\;mod\;p\\
 \\
-记f=(p-1)!\; ,则\\
+&记f=(p-1)!\; ,则\\
 \\
-f\equiv a^{p-1}\prod_{i=1}^{p-1}A_i\ (mod\ p)\\
+&f\equiv a^{p-1}\prod_{i=1}^{p-1}A_i\ (mod\ p)\\
 \\
-f\equiv a^{p-1}f\ (mod\ p)\\
+&f\equiv a^{p-1}f\ (mod\ p)\\
 \\
-1\equiv a^{p-1}\ (mod\ p)\\
+&1\equiv a^{p-1}\ (mod\ p)\\
 \\
-a^p\equiv a\ (mod\ p)\\
+&a^p\equiv a\ (mod\ p)\\
 \\
-Q.E.D\\
+&Q.E.D\\
+\end{aligned}
 $$
 
 
 
-[关于剩余系、完全剩余系、简化（既约）剩余系、同余类的概念]([剩余类、剩余系、完全剩余系和简化剩余系学习笔记 - olderciyuan - 博客园 (cnblogs.com)](https://www.cnblogs.com/olderciyuan/p/15500681.html))
+[关于剩余系、完全剩余系、简化（既约）剩余系、同余类的概念](https://www.cnblogs.com/olderciyuan/p/15500681.html)
 
 
 
@@ -523,19 +524,21 @@ $$
 ##### 证明：
 
 $$
-设集合A=\left\{r_1,r_2,……,r_{\varphi(m)}\right\}为模m下的一个简化剩余系，那么易得\\
+\begin{aligned}
+&设集合A=\left\{r_1,r_2,……,r_{\varphi(m)}\right\}为模m下的一个简化剩余系，那么易得\\
 \\
-\left\{ar_1,a_2,……,ar_{\varphi(m)} \right\}同样是一个简化剩余系\\
+&\left\{ar_1,a_2,……,ar_{\varphi(m)} \right\}同样是一个简化剩余系\\
 \\
-则根据费马小定理的证明方法有\\
+&则根据费马小定理的证明方法有\\
 \\
-f=\prod_{i=1}^{\varphi(m)}r_i\\
+&f=\prod_{i=1}^{\varphi(m)}r_i\\
 \\
-f\equiv a^{\varphi(m)}f\ (mod\ m)\\
+&f\equiv a^{\varphi(m)}f\ (mod\ m)\\
 \\
-1\equiv a^{\varphi(m)}\ (mod\ m)\\
+&1\equiv a^{\varphi(m)}\ (mod\ m)\\
 \\
-Q.E.D
+&Q.E.D
+\end{aligned}
 $$
 
 
@@ -675,6 +678,10 @@ x\equiv ba^{-1}\ (mod\ m)
 $$
 
 #### 威尔逊定理
+
+$$
+(p-1)!\equiv -1\ (mod\ p)
+$$
 
 
 
