@@ -65,7 +65,7 @@ nav_text:
   post_next: 下一篇
 
 # 文章页是否显示目录
-toc: true
+toc: false
 
 # 文章中的图片是否支持点击放大
 image_viewer: true

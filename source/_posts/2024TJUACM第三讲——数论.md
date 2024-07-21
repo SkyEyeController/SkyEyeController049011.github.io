@@ -629,19 +629,17 @@ int Ex_euler_T(int a,int n)
    	{
    		x=1;y=0;return;
    	}
-   	exgcd(b,a%b,x,y);
-   	int t=y;
-   	y=x-(a/b)y;
-   	x=t;
+   	exgcd(b,a%b,y,x);
+   	y-=(a/b)*x;
    }
    ```
-
+   
    一般的我们需要最小的正整数解：
    $$
    x=(x^{'}mod\ b\ +b)mod\
    $$
    
-
+   
    ```
    int invq(int a,int mod)
    {
@@ -650,9 +648,7 @@ int Ex_euler_T(int a,int n)
    	return (x%mod+mod)%mod;
    }
    ```
-
    
-
 2. 费马小定理求解
 
    这个是最常用的，一般题目都会让对质数求模。
@@ -683,15 +679,11 @@ $$
 (p-1)!\equiv -1\ (mod\ p)
 $$
 
-
-
 ## NT-S-1 线性同余方程组与中国剩余定理 
 
-### 中国剩余定理$Chinese\ Remainder\ Theorem$
+### 中国剩余定理$Chinese\ Remainder\ Theorem$​
 
 今有物不知几何，三三数之剩二，五五数之剩三，七七数之剩二，问物几何？
-
-
 
 ### 中国剩余定理与线性同余方程组
 
@@ -707,8 +699,7 @@ $$
 \end{aligned}\right.
 $$
 
-
-其中所有$n_i$互质。
+其中所有$n_i$​互质。
 
 #### 求解过程
 
@@ -716,37 +707,32 @@ $$
 2. 对于第$i$个方程:
    1. 计算$m_i=\frac{N}{n_i}$
    2. 计算$m_i^{-1}\ (mod\ n_i)$
-   3. 计算$c_i=m_i\cdot m_i^{-1}$，不取模。
+   3. 计算$c_i=m_i\cdot m_i^{-1}$，对$N$取模。
 3. 方程组在模$n$​意义下唯一解为
 
 $$
-x=\sum_{i=1}^ka_i\cdot c_i
+x=\sum_{i=1}^k(a_i\cdot c_i) \ mod \ N
 $$
 
 #### 证明
 
 $$
 \begin{aligned}
-&\begin{aligned}
 x&=\sum_{i=1}^ka_i\cdot c_i\\
 &=\sum_{i=1}^{k}a_i\cdot m_i\cdot m_i^{-1}\\
 \\
-\end{aligned}\\
-
-&\begin{aligned}
 &当i\neq j时，m_i\equiv 0\ (mod\ n_j)\\
 \\
 &故有\\
-\end{aligned}\\
 \\
-&\begin{aligned}
 x&\equiv a_j\cdot m_j\cdot m_j^{-1}\ (mod\ n_j)\\
 &\equiv a_j\ (mod\ n_j)\\
-\end{aligned}\\
 \\
 &Q.E.D
 \end{aligned}
 $$
+
+
 
 #### 实现
 
@@ -817,7 +803,6 @@ $$
 \left\{\begin{aligned}
 &x\equiv a_i\ (mod\ m_i)\\
 &x\equiv a_j\ (mod\ m_j)\\
-
 \end{aligned}\right.
 $$
 设此时方程组某个解为$x=m_ik_i+a_i=m_jk_j+a_j$（$k_i、k_j\in Z$​，不保证必须为质数）
